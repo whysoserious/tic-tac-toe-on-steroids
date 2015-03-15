@@ -24,11 +24,6 @@
 (defn empty? [state board-id field-id]
   (= (get state board-id field-id) _))
 
-(defn legal-move? [state board-id field-id]
-  (and
-   (empty? state board-id field-id)
-   (contains? (:small-board-ids state) board-id)))
-
 ;; TODO move to letfn in make-move?
 (defn update-next-stone [state]
   (let [{current-stone :current-stone} state
@@ -53,6 +48,11 @@
 (defn winner [state]
   (->> state :board (map #(small-board-winner %)) vec small-board-winner))
 
+(defn legal-move? [state board-id field-id]
+  (and (nil? (winner state))
+       (empty? state board-id field-id)
+       (contains? (:small-board-ids state) board-id)))
+
 (defn playable-boards [board]
   (->> board
        (map #(small-board-winner %))
@@ -71,10 +71,7 @@
     (assoc state :small-board-ids (available-small-board-ids board field-id))))
 
 (defn make-move [state board-id field-id]
-  ;; TODO move below sexp to letfn
-  (when (and (nil? (winner state))
-             (empty? state board-id field-id)
-             (contains? (:small-board-ids state) board-id))
+  (when (legal-move? state board-id field-id)
     (-> state
         (put board-id field-id)
         update-next-stone

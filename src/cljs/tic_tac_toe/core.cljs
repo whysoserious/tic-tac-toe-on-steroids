@@ -3,7 +3,7 @@
             [clojure.string :as string]
             [tic-tac-toe.board :as b]))
 
-(def state (atom (b/empty-state b/x)))
+(def state (atom (b/empty-state (rand-nth [b/x b/o]))))
 
 (defn field-element-id [board-id field-id]
   (string/join "-" ["field" board-id field-id]))
@@ -18,21 +18,13 @@
 (defn field-value [board-id field-id]
   (b/get @state board-id field-id))
 
-;; (defn click [state board-id field-id]
-;;   (let [{board :board current-move :current-move} state]
-;;     (if (s/empty? board board-id field-id)
-;;       (assoc state
-;;              :board (s/put board current-move board-id field-id)
-;;              :current-move (next-move current-move))
-;;       state)))
+(defn on-click-field [board-id field-id]
+  (swap! state b/make-move board-id field-id)
+  (set-element-value board-id field-id (:current-stone @state)))
 
 (defn on-mouse-over-field [board-id field-id]
   (when (b/legal-move? @state board-id field-id)
     (set-element-value board-id field-id (:current-stone @state))))
-
-;; (defn on-mouse-over-field [board-id field-id]
-;;   (when (s/empty? (:board @state) board-id field-id)
-;;     (set-element-value board-id field-id (:current-move @state))))
 
 (defn on-mouse-out-field [board-id field-id]
   (set-element-value board-id field-id (field-value board-id field-id)))
@@ -47,7 +39,7 @@
    {:id (field-element-id board-id field-id)
     :href "#"
     :class (hiccup-class board-id field-id)
-    ;; :on-click #(on-click-field board-id field-id)
+    :on-click #(on-click-field board-id field-id)
     :on-mouse-over #(on-mouse-over-field board-id field-id)
     :on-mouse-out #(on-mouse-out-field board-id field-id)}
    (field-value board-id field-id)])
