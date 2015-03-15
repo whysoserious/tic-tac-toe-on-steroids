@@ -8,11 +8,15 @@
 (defn field-element-id [board-id field-id]
   (string/join "-" ["field" board-id field-id]))
 
-;; (defn field-element [board-id field-id]
-;;   (.getElementById js/document (field-element-id board-id field-id)))
+(defn field-element [board-id field-id]
+  (.getElementById js/document (field-element-id board-id field-id)))
 
-;; (defn set-element-value [board-id field-id stone]
-;;   (set! (.-innerHTML (field-element board-id field-id)) stone))
+(defn set-element-value [board-id field-id stone]
+  (set! (.-innerHTML (field-element board-id field-id)) stone))
+
+;;TODO rename element vs field
+(defn field-value [board-id field-id]
+  (b/get @state board-id field-id))
 
 ;; (defn click [state board-id field-id]
 ;;   (let [{board :board current-move :current-move} state]
@@ -22,31 +26,30 @@
 ;;              :current-move (next-move current-move))
 ;;       state)))
 
-;; (defn on-click-field [board-id field-id]
-;;   (js/console.log (clojure.string/join " " ["click" board-id field-id (:current-move @state)]))
-;;   (swap! state click board-id field-id)
-;;   (js/console.log (clojure.string/join " " ["after"  @state])))
+(defn on-mouse-over-field [board-id field-id]
+  (when (b/legal-move? @state board-id field-id)
+    (set-element-value board-id field-id (:current-stone @state))))
 
 ;; (defn on-mouse-over-field [board-id field-id]
 ;;   (when (s/empty? (:board @state) board-id field-id)
 ;;     (set-element-value board-id field-id (:current-move @state))))
 
-;; (defn on-mouse-out-field [board-id field-id]
-;;   (when (s/empty? (:board @state) board-id field-id)
-;;     (set-element-value board-id field-id (s/check (:board @state) board-id field-id)))
-;;   (set! (.-innerHTML (field-element board-id field-id)) ))
+(defn on-mouse-out-field [board-id field-id]
+  (set-element-value board-id field-id (field-value board-id field-id)))
 
-(defn field-value [board-id field-id]
-  (b/get @state board-id field-id ))
+(defn hiccup-class [board-id field-id] 
+  (if (b/legal-move? @state board-id field-id)
+    "legal-move"
+    "illegal-move"))
 
 (defn hiccup-field [board-id field-id]
   [:a
    {:id (field-element-id board-id field-id)
     :href "#"
+    :class (hiccup-class board-id field-id)
     ;; :on-click #(on-click-field board-id field-id)
-    ;; :on-mouse-over #(on-mouse-over-field board-id field-id)
-    ;; :on-mouse-out #(on-mouse-out-field board-id field-id)
-   }
+    :on-mouse-over #(on-mouse-over-field board-id field-id)
+    :on-mouse-out #(on-mouse-out-field board-id field-id)}
    (field-value board-id field-id)])
 
 (defn hiccup-small-board [board-id]
