@@ -1,17 +1,14 @@
 (defproject tic-tac-toe "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :source-paths ["src/clj" "src/cljs"]
+  :description "TicTacToe on steroids"
+
+  :url "https://github.com/whysoserious/tic-tac-toe-on-steroids"
+
+  :source-paths ["src/clj" "src/cljs" "test/cljs"]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [com.facebook/react "0.11.2"]
+                 [com.facebook/react "0.12.2.4"]
                  [reagent "0.4.3"]
-                 [reagent-forms "0.4.3"]
-                 [reagent-utils "0.1.2"]
-                 [secretary "1.2.1"]
                  [org.clojure/clojurescript "0.0-2913" :scope "provided"]
                  [com.cemerick/piggieback "0.1.5"]
                  [weasel "0.5.0"]
@@ -38,7 +35,7 @@
 
   :main tic-tac-toe.server
 
-  :clean-targets ^{:protect false} ["resources/public/js"]
+  :clean-targets ^{:protect false} ["resources/public/js" "resources/test"]
 
   :minify-assets {:assets
                   {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
@@ -48,14 +45,12 @@
                                         :output-dir    "resources/public/js/out"
                                         :externs       ["react/externs/react.js"]
                                         :optimizations :none
-                                        :pretty-print  true}}}
-              }
+                                        :pretty-print  true}}}}
 
   :profiles {:dev {:repl-options {:init-ns tic-tac-toe.handler
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
-                   :dependencies [[ring-mock "0.1.5"]
-                                  [ring/ring-devel "1.3.2"]
+                   :dependencies [[ring/ring-devel "1.3.2"]
                                   [pjstadig/humane-test-output "0.6.0"]]
 
                    :plugins [[lein-figwheel "0.2.0-SNAPSHOT"]
