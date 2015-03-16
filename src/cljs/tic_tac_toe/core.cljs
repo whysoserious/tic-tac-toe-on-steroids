@@ -19,8 +19,9 @@
   (b/get @state board-id field-id))
 
 (defn on-click-field [board-id field-id]
-  (swap! state b/make-move board-id field-id)
-  (set-element-value board-id field-id (:current-stone @state)))
+  (when (b/legal-move? @state board-id field-id)
+    (swap! state b/make-move board-id field-id)
+    (set-element-value board-id field-id (:current-stone @state))))
 
 (defn on-mouse-over-field [board-id field-id]
   (when (b/legal-move? @state board-id field-id)

@@ -14,9 +14,9 @@
                           ["_" "_" "_" "_" "_" "_" "O" "O" "O"]]
                          o
                          #{1}))
-(deftest xxx
-  (testing "YYY"
-    (is (= 1 2))))
+
+(deftest xxx (is (= 1 2)))
+
 ;; (deftest making-moves
 ;;   (testing "Making moves"
 ;;     (is (= (make-move test-state 1 1)
