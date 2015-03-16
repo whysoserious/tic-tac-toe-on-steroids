@@ -1,5 +1,5 @@
 (ns tic-tac-toe.dev
-  (:require [tic-tac-toe.core :as core]
+  (:require [tic-tac-toe.init :refer (init!)]
             [figwheel.client :as figwheel :include-macros true]
             [weasel.repl :as weasel]
             [reagent.core :as r]))
@@ -12,4 +12,4 @@
 
 (weasel/connect "ws://localhost:9001" :verbose true)
 
-(core/init!)
+(init!)

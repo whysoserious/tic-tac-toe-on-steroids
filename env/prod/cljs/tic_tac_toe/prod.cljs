@@ -1,4 +1,4 @@
 (ns tic-tac-toe.prod
-  (:require [tic-tac-toe.core :as core]))
+  (:require [tic-tac-toe.init :refer (init!)]))
 
-(core/init!)
+(init!)

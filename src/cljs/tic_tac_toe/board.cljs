@@ -61,7 +61,6 @@
     (playable-boards board)
     #{field-id}))
 
-;; TODO move to letfn in make-move?
 (defn update-next-stone [state]
   (let [{current-stone :current-stone} state
         next-stone (cond (= current-stone x) o (= current-stone o) x)]
