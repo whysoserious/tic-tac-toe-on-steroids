@@ -7,16 +7,15 @@
   :source-paths ["src/clj" "src/cljs" "test/cljs"]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [com.facebook/react "0.12.2.4"]
-                 [reagent "0.4.3"]
-                 [org.clojure/clojurescript "0.0-2913" :scope "provided"]
+                 [reagent "0.5.0"]
+                 [org.clojure/clojurescript "0.0-3115" :scope "provided"]
                  [com.cemerick/piggieback "0.1.5"]
-                 [weasel "0.5.0"]
+                 [weasel "0.6.0"]
                  [ring "1.3.2"]
                  [ring/ring-defaults "0.1.3"]
-                 [prone "0.8.0"]
-                 [compojure "1.3.1"]
-                 [selmer "0.8.0"]
+                 [prone "0.8.1"]
+                 [compojure "1.3.2"]
+                 [selmer "0.8.2"]
                  [environ "1.0.0"]
                  [leiningen "2.5.1"]
                  [figwheel "0.1.6-SNAPSHOT"]]
@@ -43,7 +42,6 @@
   :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
                              :compiler {:output-to     "resources/public/js/app.js"
                                         :output-dir    "resources/public/js/out"
-                                        :externs       ["react/externs/react.js"]
                                         :optimizations :none
                                         :pretty-print  true}}}}
 
@@ -71,7 +69,6 @@
                                         :test {:source-paths ["src/cljs" "test/cljs"]
                                                :compiler {:output-to     "resources/test/js/test.js"
                                                           :output-dir    "resources/test/js/out"
-                                                          :externs       ["react/externs/react.js"]
                                                           :optimizations :advanced
                                                           :hashbang false
                                                           :target :nodejs
