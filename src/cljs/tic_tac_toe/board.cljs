@@ -18,11 +18,11 @@
 (defn put-stone [state board-id field-id]
   (assoc-in state [:board board-id field-id] (:current-stone state)))
 
-(defn get [state board-id field-id]
+(defn get-stone [state board-id field-id]
   (get-in (:board state) [board-id field-id]))
 
-(defn empty? [state board-id field-id]
-  (= (get state board-id field-id) _))
+(defn field-empty? [state board-id field-id]
+  (= (get-stone state board-id field-id) _))
 
 ;; TODO move to letfn in make-move?
 (defn update-next-stone [state]
@@ -50,7 +50,7 @@
 
 (defn legal-move? [state board-id field-id]
   (and (nil? (winner state))
-       (empty? state board-id field-id)
+       (field-empty? state board-id field-id)
        (contains? (:small-board-ids state) board-id)))
 
 (defn playable-boards [board]

@@ -16,7 +16,7 @@
 
 ;;TODO rename element vs field
 (defn field-value [board-id field-id]
-  (b/get @state board-id field-id))
+  (b/get-stone @state board-id field-id))
 
 (defn on-click-field [board-id field-id]
   (when (b/legal-move? @state board-id field-id)
