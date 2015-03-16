@@ -5,6 +5,8 @@
 
 (def state (atom (empty-state (rand-nth [x o]))))
 
+;; Accessing / mutating DOM
+
 (defn field-element-id [board-id field-id]
   (string/join "-" ["field" board-id field-id]))
 
@@ -14,7 +16,8 @@
 (defn set-element-value [board-id field-id stone]
   (set! (.-innerHTML (field-element board-id field-id)) stone))
 
-;;TODO rename element vs field
+;; Functions accessing state of an application
+
 (defn field-value [board-id field-id]
   (get-stone @state board-id field-id))
 
@@ -34,6 +37,8 @@
   (if (legal-move? @state board-id field-id)
     "legal-move"
     "illegal-move"))
+
+;; Generating HTML
 
 (defn hiccup-field [board-id field-id]
   [:a
