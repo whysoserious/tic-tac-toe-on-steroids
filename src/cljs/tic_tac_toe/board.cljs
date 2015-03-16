@@ -24,11 +24,6 @@
 (defn field-empty? [state board-id field-id]
   (= (get-stone state board-id field-id) _))
 
-;; TODO move to letfn in make-move?
-(defn update-next-stone [state]
-  (let [{current-stone :current-stone} state
-        next-stone (cond (= current-stone x) o (= current-stone o) x)]
-    (assoc state :current-stone next-stone)))
 
 (def winning-triplets [[0 1 2] [3 4 5] [6 7 8]
                        [0 3 6] [1 4 7] [2 5 8]
@@ -65,6 +60,12 @@
   (if (some? (small-board-winner (board field-id)))
     (playable-boards board)
     #{field-id}))
+
+;; TODO move to letfn in make-move?
+(defn update-next-stone [state]
+  (let [{current-stone :current-stone} state
+        next-stone (cond (= current-stone x) o (= current-stone o) x)]
+    (assoc state :current-stone next-stone)))
 
 (defn update-small-board-ids [state field-id]
   (let [{board :board} state]
