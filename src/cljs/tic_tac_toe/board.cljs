@@ -15,7 +15,7 @@
 (defn empty-state [current-stone]
   (->State (empty-board) current-stone (set (range 0 9))))
 
-(defn put [state board-id field-id]
+(defn put-stone [state board-id field-id]
   (assoc-in state [:board board-id field-id] (:current-stone state)))
 
 (defn get [state board-id field-id]
@@ -73,6 +73,6 @@
 (defn make-move [state board-id field-id]
   (when (legal-move? state board-id field-id)
     (-> state
-        (put board-id field-id)
+        (put-stone board-id field-id)
         update-next-stone
         (update-small-board-ids field-id))))
