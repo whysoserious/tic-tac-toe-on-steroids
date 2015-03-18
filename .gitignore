@@ -8,9 +8,9 @@ pom.xml.asc
 /.lein-*
 /.nrepl-port
 /resources/public/js
+/resources/test/js
 /out
 /.repl
 /.#project.clj
 /Procfile
-/resources/
 backup

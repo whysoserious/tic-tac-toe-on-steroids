@@ -1,0 +1,23 @@
+<html>
+  <head>
+    {% if dev %}
+    {% style "css/site.css" %}
+    {% else %}
+    {% style "css/site.min.css" %}
+    {% endif %}
+  </head>
+  <body>
+    <div id="container">
+      <div id="app"></div>
+      <div id="info">This is ultimate version of TicTacToe. Instead of one 3x3 board it consists of nine 3x3 boards. You can read more about rules of the game <a target="_blank" href="http://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/">[here]</a>.</div>
+    </div>
+    {% if dev %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.js"></script>
+    {% script "js/out/goog/base.js" %}
+    {% script "js/app.js" %}
+    <script type="text/javascript">goog.require("tic_tac_toe.dev");</script>
+    {% else %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.min.js"></script>
+    {% script "js/app.js" %}
+    {% endif %}
+  </body>
