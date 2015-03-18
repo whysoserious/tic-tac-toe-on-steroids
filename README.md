@@ -11,6 +11,8 @@ This is still __work in progress__. For now I finished rules engine and ultra si
 
 ## Testing
 
+Install node and:
+
 ```
 lein cljsbuild test
 ```
