@@ -3,6 +3,13 @@
             [clojure.string :as string]
             [tic-tac-toe.board :refer [empty-state x o get-stone make-move legal-move?]]))
 
+(def human 'human)
+
+(def ai 'ai)
+
+;; TODO this has to be renamed. We also have a State record in board.cljs
+(defrecord State [board player-one player-two])
+
 (def state (atom (empty-state (rand-nth [x o]))))
 
 ;; Accessing / mutating DOM
